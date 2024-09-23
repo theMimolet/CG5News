@@ -28,18 +28,6 @@
                     'controls': 0, // Pour cacher les contrôles si souhaité
                     'modestbranding': 1,
                     'rel': 0
-                },
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            // Mettre la vidéo en plein écran dès qu'elle est prête
-            var iframe = event.target.getIframe();
-            iframe.requestFullscreen();
-        }
     </script>
 </body>
 </html>
