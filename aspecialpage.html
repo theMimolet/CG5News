@@ -25,9 +25,23 @@
                 videoId: 'dQw4w9WgXcQ', // Remplace par l'ID de ta vidéo YouTube
                 playerVars: {
                     'autoplay': 1,
-                    'controls': 0, // Pour cacher les contrôles si souhaité
+                    'controls': 0,
                     'modestbranding': 1,
-                    'rel': 0
+                    'rel': 0,
+                    'mute': 0, // Activer le mode muet pour forcer l'autoplay
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Mettre la vidéo en plein écran dès qu'elle est prête
+            var iframe = event.target.getIframe();
+            iframe.requestFullscreen();
+        }
     </script>
 </body>
 </html>
