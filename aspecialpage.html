@@ -3,31 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vidéo Plein Écran</title>
+    <title>Vidéo YouTube Plein Écran</title>
     <!-- Lien vers la feuille de style CSS -->
-    <link rel="stylesheet" href="aspecialpage.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="video-container">
-        <video id="video" autoplay muted playsinline>
-            <source src="https://github.com/NTG18/CG5News/blob/f8bada58d1dc6ac1b20f3a57d9577452b9170290/images/video.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la balise vidéo.
-        </video>
+        <div id="youtube-player"></div>
     </div>
 
     <script>
-        window.onload = function() {
-            const video = document.getElementById('video');
-            // Démarrer la vidéo en plein écran
-            video.requestFullscreen().catch(err => {
-                console.error(`Erreur lors de la tentative de plein écran: ${err}`);
-            });
+        // Charger l'API YouTube iframe
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-            // Lancer la vidéo
-            video.play().catch(err => {
-                console.error(`Erreur lors de la lecture de la vidéo: ${err}`);
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                videoId: 'dQw4w9WgXcQ', // Remplace par l'ID de ta vidéo YouTube
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 0, // Pour cacher les contrôles si souhaité
+                    'modestbranding': 1,
+                    'rel': 0
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
             });
-        };
+        }
+
+        function onPlayerReady(event) {
+            // Mettre la vidéo en plein écran dès qu'elle est prête
+            var iframe = event.target.getIframe();
+            iframe.requestFullscreen();
+        }
     </script>
 </body>
 </html>
